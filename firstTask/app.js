@@ -23,6 +23,21 @@ function nextId(e) {
   return parseInt(max) + 1;
 }
 
+//add items to dropdown menu
+function addItemsToDropDown() {
+  for (let item of items) {
+    var option = document.createElement("option");
+    option.value = item.children[0].textContent;
+    option.id = item.id - item.id - item.id;
+    dropDown.appendChild(option);
+  }
+}
+//delete options from DropDown
+function removeItemsFromDropDown() {
+  var options = document.querySelectorAll("#dropdown-item-list option");
+  options.forEach((o) => o.remove());
+}
+
 // Add item
 function addItem(e) {
   e.preventDefault();
@@ -30,13 +45,14 @@ function addItem(e) {
   var option = document.createElement("option");
   // Get input value
   var newItem = document.getElementById("item").value;
-
+  var span = document.createElement("span");
+  span.innerHTML = newItem;
   // Create new li element
   var li = document.createElement("li");
   // Add class
   li.className = "list-group-item";
   // Add text node with input value
-  li.appendChild(document.createTextNode(newItem));
+  li.appendChild(span);
   // add unique id to li element
   li.setAttribute("id", nextId(items));
 
@@ -69,6 +85,8 @@ function removeItem(e) {
       itemList.removeChild(li);
     }
   }
+  removeItemsFromDropDown();
+  addItemsToDropDown();
 }
 
 // Filter Items
@@ -79,7 +97,7 @@ function filterItems(e) {
   var items = itemList.getElementsByTagName("li");
   // Convert to an array
   Array.from(items).forEach(function (item) {
-    var itemName = item.firstChild.textContent;
+    var itemName = item.children[0].textContent;
     if (itemName.toLowerCase().indexOf(text) != -1) {
       item.style.display = "block";
     } else {
@@ -87,3 +105,5 @@ function filterItems(e) {
     }
   });
 }
+
+addItemsToDropDown();
