@@ -14,21 +14,25 @@
     <div class="container">
       <h1 class="title">Tic <span>Tac</span> Toe</h1>
       <div class="status-action">
-        <div class="status">X is next</div>
-        <div class="reset">Reset</div>
+        <div class="status" id="status">X is next</div>
+        <div class="reset" id="reset">Reset</div>
       </div>
-      <div class="game-grid">
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
-        <div class="game-cell"></div>
+      <div class="winning-message" id="winningMessage">
+        <div data-winning-message-text></div>
+        
       </div>
-    </div>
-    <script src="app.js"></script>
+      <div class="game-grid" id="game-grid">
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+      </div>
+      
   </body>
 </html>
+<script src="app.js"></script>

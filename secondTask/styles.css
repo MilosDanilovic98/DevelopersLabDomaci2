@@ -44,9 +44,14 @@ body {
 .status span {
   color: #f2ebd3;
 }
-
+[data-winning-message-text] {
+  font-size: 2rem;
+  text-align: center;
+  color: #00e7ff;
+}
 .reset {
   cursor: pointer;
+  z-index: 100;
 }
 
 .reset:hover {
@@ -61,7 +66,7 @@ body {
   grid-gap: 1rem;
 }
 
-.game-cell {
+.cell {
   background: #ffffff;
   display: flex;
   justify-content: center;
@@ -76,15 +81,16 @@ body {
   cursor: default;
 }
 
-.x::after {
+.cell.x::after {
   content: "×";
-  font-size: 200px;
+  font-size: 10rem;
 }
 
-.o::after {
+.cell.o::after {
   content: "○";
-  color: #f2ebd3;
-  font-size: 225px;
+  color: red;
+  font-size: 10rem;
+  margin-bottom: 2rem;
 }
 
 .won::after {
