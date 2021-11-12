@@ -17,15 +17,20 @@ body {
 
 .close {
   position: absolute;
-  top: 5p;
-  right: 5px;
+  top: 5px;
+  right: 15px;
   font-size: 46px;
   font-weight: 600;
   color: #da2c38;
   display: none;
   cursor: pointer;
+  z-index: 100;
+  opacity: 0.5;
 }
 
+.close:hover {
+  opacity: 1;
+}
 .slideshow-container {
   width: 50vw;
   height: 50vh;
