@@ -11,8 +11,23 @@ itemList.addEventListener("click", removeItem);
 // Filter event
 filter.addEventListener("keyup", filterItems);
 
-//Add unique id to the list items
+function onInput() {
+  var opts = document.getElementById("dropdown-item-list").childNodes;
 
+  for (var i = 1; i < opts.length; i++) {
+    opts[i].addEventListener("click", showSelectedItem);
+    console.log(opts[i]);
+  }
+}
+function showSuggestions(list) {
+  let listData;
+  Array.from(items).forEach(function (item) {
+    suggBox.appendChild(item);
+  });
+  suggBox.innerHTML = listData;
+}
+
+//Add unique id to the list items
 function nextId(e) {
   var max = 0;
   for (let item of items) {
@@ -26,7 +41,7 @@ function nextId(e) {
 //add items to dropdown menu
 function addItemsToDropDown() {
   for (let item of items) {
-    var option = document.createElement("option");
+    var option = document.createElement("li");
     option.value = item.children[0].textContent;
     option.id = item.id - item.id - item.id;
     dropDown.appendChild(option);
@@ -42,7 +57,7 @@ function removeItemsFromDropDown() {
 function addItem(e) {
   e.preventDefault();
   //create option for the drop list
-  var option = document.createElement("option");
+  var option = document.createElement("li");
   // Get input value
   var newItem = document.getElementById("item").value;
   var span = document.createElement("span");
@@ -94,10 +109,11 @@ function filterItems(e) {
   // convert text to lowercase
   var text = e.target.value.toLowerCase();
   // Get lis
-  var items = itemList.getElementsByTagName("li");
+
   // Convert to an array
   Array.from(items).forEach(function (item) {
     var itemName = item.children[0].textContent;
+    //
     if (itemName.toLowerCase().indexOf(text) != -1) {
       item.style.display = "block";
     } else {
@@ -106,4 +122,17 @@ function filterItems(e) {
   });
 }
 
+function showSelectedItem(e) {
+  var items = itemList.getElementsByTagName("li");
+  Array.from(items).forEach(function (item) {
+    console.log(e.target.id);
+    if (item.id != e.target.id) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
 addItemsToDropDown();
+onInput();
