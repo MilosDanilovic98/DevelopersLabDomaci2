@@ -1,3 +1,7 @@
+//its a little bit laggy in the begining because of the size of the images i picked
+var slideShowContainer = document.getElementById("slideshow-container");
+var slideShowImages = document.getElementsByTagName("img");
+var closeButton = document.getElementById("close");
 var slideIndex = 1;
 showSlides(slideIndex);
 
@@ -24,6 +28,51 @@ function showSlides(n) {
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-
-  slides[slideIndex - 1].style.display = "block";
+  var selectedImage = slides[slideIndex - 1];
+  selectedImage.style.display = "block";
 }
+
+//function for mouseover event
+function blaa(e) {
+  switch (e.key) {
+    case "Left": // IE/Edge specific value
+    case "ArrowLeft":
+      plusSlides(-1);
+      break;
+
+    case "Right": // IE/Edge specific value
+    case "ArrowRight":
+      plusSlides(1);
+      break;
+  }
+}
+//adding all the needed event listeners
+function inContainer() {
+  document.addEventListener("keydown", blaa);
+}
+
+function removeEvent() {
+  document.removeEventListener("keydown", blaa);
+}
+slideShowContainer.addEventListener("mouseenter", inContainer);
+slideShowContainer.addEventListener("mouseleave", removeEvent);
+
+function clickedContainer() {
+  slideShowContainer.style.width = "90vw";
+  slideShowContainer.style.height = "90vh";
+  closeButton.style.display = "block";
+}
+
+function addEventsToImages() {
+  for (var i = 0, max = slideShowImages.length; i < max; i++) {
+    slideShowImages[i].addEventListener("click", clickedContainer);
+  }
+}
+addEventsToImages();
+
+function closeButtonClicked() {
+  slideShowContainer.style.width = "50vw";
+  slideShowContainer.style.height = "50vh";
+  closeButton.style.display = "none";
+}
+closeButton.addEventListener("click", closeButtonClicked);
