@@ -39,3 +39,60 @@ function startGame() {
   //winningMessageTextElement.innerText = "";
   whoIsNext.innerText = "X's turn";
 }
+//function for clicking on cells
+function handleClick(e) {
+  const cell = e.target;
+  const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
+  if (circleTurn) {
+    whoIsNext.innerText = "X's turn";
+  } else {
+    whoIsNext.innerText = "O's turn";
+  }
+  placeMark(cell, currentClass);
+  if (checkWin(currentClass)) {
+    endGame(false);
+  } else if (isDraw()) {
+    endGame(true);
+  } else {
+    swapTurns();
+  }
+}
+//function that ends the game
+function endGame(draw) {
+  if (draw) {
+    //winningMessageTextElement.innerText = "Draw!";
+    alert("Draw!");
+  } else {
+    // winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} Wins!`;
+    alert(`${circleTurn ? "O's" : "X's"} Wins!`);
+  }
+
+  cellElements.forEach((cell) => {
+    cell.removeEventListener("click", handleClick);
+  });
+  startGame();
+}
+//checks if its a draw
+function isDraw() {
+  return [...cellElements].every((cell) => {
+    return (
+      cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
+    );
+  });
+}
+//marks the cell depending on whose turn it is
+function placeMark(cell, currentClass) {
+  cell.classList.add(currentClass);
+}
+//changes whose turn it is
+function swapTurns() {
+  circleTurn = !circleTurn;
+}
+//check for win combo
+function checkWin(currentClass) {
+  return WINNING_COMBINATIONS.some((combination) => {
+    return combination.every((index) => {
+      return cellElements[index].classList.contains(currentClass);
+    });
+  });
+}
