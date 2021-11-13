@@ -77,3 +77,6 @@ button:hover {
   justify-content: center;
   align-items: center;
 }
+.questionText {
+  text-align: center;
+}
