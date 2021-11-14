@@ -105,9 +105,10 @@ const questions = [
   },
 ];
 var answerBtn = document.getElementById("answerBtn");
+var optionsContainer = document.getElementById("optionContainer");
 var options = document.getElementsByClassName("option");
 var questionText = document.getElementById("questionText");
-var scoreElement = document.getElementById("score");
+
 var scoreInt = 0;
 var rq;
 var counter = 0;
@@ -151,7 +152,10 @@ function checkAnswers(e) {
   if (counter > 0) {
     e = rq[counter - 1];
   }
-
+  if (counter === 10) {
+    alert("You answered all the questions correcty!");
+    location.reload;
+  }
   var isCorrect = true;
   let selectedAnswers = [];
   for (let item of options) {
@@ -176,9 +180,13 @@ function checkAnswers(e) {
     console.log(isCorrect);
     if (isCorrect) {
       scoreInt++;
-      console.log(score.toString());
-      scoreElement.innerHTML = scoreInt;
+
+      nextQuestion();
+    } else {
+      alert("Your final score is " + scoreInt);
+      location.reload();
     }
+
     return isCorrect;
   } else {
     isCorrect = false;
@@ -191,31 +199,28 @@ function checkAnswers(e) {
 
 function startGame() {
   rq = shuffle(questions);
+  optionsContainer.innerHTML =
+    '<div class="option"></div> <div class="option"></div> <div class="option"></div><div class="option"></div>';
   optionAddEventListeners();
   let question = rq[counter];
-  console.log(question);
+
   questionText.innerHTML = question.question;
+  optionsContainer.classList.remove("hide");
   let i = 0;
   for (let item of options) {
     item.innerHTML = question.offeredAnswers[i].answerText;
     i++;
   }
-  console.log(counter);
+
   counter++;
   answerBtn.innerHTML = "ANSWER";
 }
 function startGameEvent() {
   startGame();
   answerBtn.removeEventListener("click", startGameEvent);
-  answerBtn.addEventListener("click", nextQuestion);
+  answerBtn.addEventListener("click", checkAnswers);
 }
 function nextQuestion() {
-  if (counter === 10) {
-    alert("Your final score is " + scoreInt);
-    location.reload();
-  }
-
-  checkAnswers();
   console.log(counter);
   let question = rq[counter];
   console.log(question);
