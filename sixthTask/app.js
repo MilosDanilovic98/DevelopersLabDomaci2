@@ -7,7 +7,6 @@ const questions = [
       { answerText: "ctrl+d", isTrue: false },
       { answerText: "shift+c", isTrue: false },
     ],
-    correctAnswers: 1,
   },
   {
     question: "What does “HTTP” stand for?",
@@ -17,7 +16,6 @@ const questions = [
       { answerText: "Html Transfer Protocol", isTrue: false },
       { answerText: "HyperText Transfer Part", isTrue: false },
     ],
-    correctAnswers: 1,
   },
   {
     question: "Which email service is owned by Microsoft?",
@@ -27,7 +25,6 @@ const questions = [
       { answerText: "MeMail", isTrue: false },
       { answerText: "YahooMail", isTrue: false },
     ],
-    correctAnswers: 1,
   },
   {
     question:
@@ -38,7 +35,6 @@ const questions = [
       { answerText: "Programming Languages", isTrue: false },
       { answerText: "Search Engines", isTrue: false },
     ],
-    correctAnswers: 1,
   },
   {
     question:
@@ -49,7 +45,6 @@ const questions = [
       { answerText: "ROM", isTrue: false },
       { answerText: "CD-ROM", isTrue: false },
     ],
-    correctAnswers: 1,
   },
   {
     question: "What are the primitive JS types?",
@@ -59,7 +54,6 @@ const questions = [
       { answerText: "boolean", isTrue: true },
       { answerText: "array", isTrue: false },
     ],
-    correctAnswers: 2,
   },
   {
     question: "How are color images saved in computer graphics?",
@@ -69,7 +63,6 @@ const questions = [
       { answerText: "Matrices made out of 1D arrays", isTrue: true },
       { answerText: "1.5D Vestors", isTrue: false },
     ],
-    correctAnswers: 2,
   },
   {
     question:
@@ -80,7 +73,6 @@ const questions = [
       { answerText: "Ebay", isTrue: false },
       { answerText: "Patuljak.me", isTrue: false },
     ],
-    correctAnswers: 1,
   },
   {
     question: "What does CPU stand for?",
@@ -90,7 +82,6 @@ const questions = [
       { answerText: "Computer processor unit", isTrue: false },
       { answerText: "Central processed unity", isTrue: false },
     ],
-    correctAnswers: 1,
   },
   {
     question:
@@ -101,7 +92,6 @@ const questions = [
       { answerText: "Kong", isTrue: false },
       { answerText: "Mong", isTrue: false },
     ],
-    correctAnswers: 1,
   },
 ];
 var answerBtn = document.getElementById("answerBtn");
@@ -114,6 +104,7 @@ var rq;
 var counter = 0;
 answerBtn.addEventListener("click", startGameEvent);
 
+// Make random array of question
 function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
@@ -133,7 +124,7 @@ function shuffle(array) {
 
   return array;
 }
-
+// Check if option is clicked and change its status
 function optionClicked(e) {
   if (e.target.classList.contains("selected")) {
     e.target.classList.remove("selected");
@@ -141,13 +132,13 @@ function optionClicked(e) {
     e.target.classList.add("selected");
   }
 }
-
+// Add event listeners on the answer options
 function optionAddEventListeners() {
   for (let item of options) {
     item.addEventListener("click", optionClicked);
   }
 }
-
+//Checks if the answer is correct and gives you the score
 function checkAnswers(e) {
   if (counter > 0) {
     e = rq[counter - 1];
@@ -196,7 +187,7 @@ function checkAnswers(e) {
     return isCorrect;
   }
 }
-
+//starts the game
 function startGame() {
   rq = shuffle(questions);
   optionsContainer.innerHTML =
@@ -215,11 +206,15 @@ function startGame() {
   counter++;
   answerBtn.innerHTML = "ANSWER";
 }
+
+// event for starting the game
 function startGameEvent() {
   startGame();
   answerBtn.removeEventListener("click", startGameEvent);
   answerBtn.addEventListener("click", checkAnswers);
 }
+
+//Sets up the next question
 function nextQuestion() {
   console.log(counter);
   let question = rq[counter];
