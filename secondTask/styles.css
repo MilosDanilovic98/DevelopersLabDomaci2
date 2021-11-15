@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,9 +9,9 @@ html {
 }
 body {
   color: #ffe600;
-
+  font-family: "Righteous", cursive;
   display: flex;
-  font-family: sans-serif;
+
   justify-content: center;
   background-image: url(tic-tac-toe.png);
 }
@@ -74,6 +75,7 @@ body {
   cursor: pointer;
   height: 8rem;
   width: 8rem;
+  border-radius: 20px;
 }
 
 .x,

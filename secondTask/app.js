@@ -36,8 +36,13 @@ function startGame() {
     cell.addEventListener("click", handleClick, { once: true });
   });
 
-  //winningMessageTextElement.innerText = "";
+  winningMessageTextElement.innerText = "";
   whoIsNext.innerText = "X's turn";
+}
+//marks the cell depending on whose turn it is
+function placeMark(cell, currentClass) {
+  cell.classList.add(currentClass);
+  console.log("ssss");
 }
 //function for clicking on cells
 function handleClick(e) {
@@ -49,6 +54,7 @@ function handleClick(e) {
     whoIsNext.innerText = "O's turn";
   }
   placeMark(cell, currentClass);
+  console.log("aaa");
   if (checkWin(currentClass)) {
     endGame(false);
   } else if (isDraw()) {
@@ -60,17 +66,25 @@ function handleClick(e) {
 //function that ends the game
 function endGame(draw) {
   if (draw) {
-    //winningMessageTextElement.innerText = "Draw!";
-    alert("Draw!");
+    winningMessageTextElement.innerText = "Draw!";
+
+    setTimeout(function () {
+      alert("Draw!");
+    }, 500);
   } else {
-    // winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} Wins!`;
-    alert(`${circleTurn ? "O's" : "X's"} Wins!`);
+    winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} Wins!`;
+
+    setTimeout(function () {
+      alert(`${circleTurn ? "O's" : "X's"} Wins!`);
+    }, 500);
   }
 
   cellElements.forEach((cell) => {
     cell.removeEventListener("click", handleClick);
   });
-  startGame();
+  setTimeout(function () {
+    startGame();
+  }, 500);
 }
 //checks if its a draw
 function isDraw() {
@@ -80,10 +94,7 @@ function isDraw() {
     );
   });
 }
-//marks the cell depending on whose turn it is
-function placeMark(cell, currentClass) {
-  cell.classList.add(currentClass);
-}
+
 //changes whose turn it is
 function swapTurns() {
   circleTurn = !circleTurn;
