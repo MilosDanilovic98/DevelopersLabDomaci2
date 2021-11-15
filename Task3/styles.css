@@ -1,0 +1,52 @@
+.container {
+  width: 60%;
+  margin: auto;
+}
+
+.numberOfChars {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.startingDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.numberInput {
+  height: 2rem;
+  text-align: center;
+}
+button {
+}
+.containerOfCharBoxes {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.charBox {
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+}
+.boxContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.message {
+  width: 100px;
+  height: 100px;
+}
+
+.green {
+  background-color: green;
+}
+.red {
+  background-color: red;
+}
