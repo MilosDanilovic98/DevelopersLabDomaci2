@@ -1,4 +1,3 @@
-var numberOfChars = document.getElementById("numberImput").value;
 var submitBtn = document.getElementById("startBtn");
 var container = document.getElementById("containerOfCharBoxes");
 var addOneMoreChar = document.getElementById("addOneMoreChar");
@@ -7,11 +6,14 @@ var messageContainer = document.getElementById("messageContainer");
 var message;
 var addBtn;
 var deleteChar;
+var numberOfChars;
 var charBoxes = document.getElementsByClassName("charBox");
-console.log(numberOfChars);
+
 submitBtn.addEventListener("click", submitBtnClicked);
 
+//app set up
 function submitBtnClicked() {
+  numberOfChars = document.getElementById("numberImput").value;
   let HtmlString = "";
 
   for (let index = 0; index < numberOfChars; index++) {
@@ -28,8 +30,9 @@ function submitBtnClicked() {
   addBtn = document.getElementById("addBtn");
   deleteChar = document.getElementsByClassName("delete");
   addEventListeners();
+  checkIfValid();
 }
-
+//adds event listeners
 function addEventListeners() {
   for (let item of deleteChar) {
     item.addEventListener("click", removeChar);
@@ -40,7 +43,7 @@ function addEventListeners() {
   }
   addBtn.addEventListener("click", addChar);
 }
-
+//adds a new box
 function addChar() {
   let content =
     '<div class="boxContainer"><span class="delete">X</span><input type="text" class="charBox" maxlength="1" /> </div>';
@@ -48,12 +51,14 @@ function addChar() {
 
   deleteChar[deleteChar.length - 1].addEventListener("click", removeChar);
   charBoxes[charBoxes.length - 1].addEventListener("input", checkIfValid);
+  checkIfValid();
 }
-
+//removes the selected box
 function removeChar() {
   event.target.parentElement.remove();
+  checkIfValid();
 }
-
+//checks if the inputs are valid
 function checkIfValid() {
   let enteredWord = "";
   var letters = /^[A-Za-z]+$/;
@@ -89,6 +94,7 @@ function checkIfValid() {
   }
 }
 
+//checks if the word is a palyndrome
 function checkPalindrome(str) {
   return str == str.split("").reverse().join("");
 }
