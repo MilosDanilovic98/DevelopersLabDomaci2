@@ -86,6 +86,12 @@ function resetTimer() {
 // checks which option is selected
 
 function selectedOption(e) {
+  for (let item of options) {
+    if (item.classList.contains("selected")) {
+      item.classList.remove("selected");
+    }
+  }
+  e.target.classList.add("selected");
   if (event.target.id === "pomodoro") {
     currentOption = 1;
     currentTime = 60 * 25;

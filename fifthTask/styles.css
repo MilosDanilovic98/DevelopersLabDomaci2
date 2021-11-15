@@ -1,37 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap");
 * {
   margin: 0;
   box-sizing: border-box;
 }
-
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fce762;
+  font-family: "Libre Baskerville", serif;
+}
 .container {
-  background-color: rebeccapurple;
-  width: 60%;
+  background-color: #f51720;
+  width: 40%;
   height: 50vh;
-  margin: auto;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
+  border-radius: 2rem;
+  border-top-left-radius: 7rem;
+  border-top-right-radius: 7rem;
 }
 .options {
   width: 100%;
   display: flex;
-  background-color: cyan;
+  background-color: #fce762;
   justify-content: center;
   align-items: center;
 }
 .option {
   display: flex;
+  background-color: #4f4789;
   flex: 1;
-  border: 2px solid gray;
   justify-content: center;
   align-items: center;
-  height: 2rem;
+  height: 3rem;
+  backface-visibility: hidden;
+  cursor: pointer;
+  border-radius: 2rem;
+  white-space: nowrap;
+
+  border: 5px solid #fff;
+  border-width: 5px 5px 5px 5px;
+  color: #fff;
+}
+.option:hover {
+  background-color: #201335;
+}
+.selected {
+  background-color: #201335;
+  animation-name: example;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 
+@keyframes example {
+  0% {
+    letter-spacing: 0;
+  }
+  50% {
+    bletter-spacing: 0.2rem;
+  }
+  100% {
+    letter-spacing: 0.5rem;
+  }
+}
 .clock {
   font-size: 5rem;
+  width: 50%;
+  text-align: center;
 }
 
 .buttons {
@@ -42,13 +85,59 @@
   justify-content: space-around;
   height: 4rem;
 }
-button {
-  width: 6rem;
+
+.buttonClass {
+  font-size: 15px;
+  font-family: Arial;
+  width: 140px;
+  height: 50px;
+  border-width: 1px;
+  color: #fff;
+
+  font-weight: bold;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+#start {
+  border-color: #083a6d;
+  box-shadow: inset 0px 1px 0px 0px #dcecfb;
+  text-shadow: inset 0px 1px 0px #0c4680;
+  background: linear-gradient(#11406e, #06213b);
 }
 
-@media only screen and (max-width: 600px) {
+#start:hover {
+  background: linear-gradient(#80b5ea, #bddbfa);
+}
+
+#reset {
+  border-color: #6fcf38;
+  box-shadow: inset 0px 1px 0px 0px #dcfbe6;
+  text-shadow: inset 0px 1px 0px #6acc52;
+  background: linear-gradient(#61e461, #1c8b25);
+}
+#reset:hover {
+  background: linear-gradient(#8cea80, #bdfac5);
+}
+
+#stop {
+  border-color: #cc2727;
+  box-shadow: inset 0px 1px 0px 0px #fbdcdc;
+  text-shadow: inset 0px 1px 0px #af1c1c;
+  background: linear-gradient(#a72828, #b90c0c);
+}
+
+#stop:hover {
+  background: linear-gradient(#ea8080, #fabdbd);
+}
+
+@media only screen and (max-width: 1023px) {
   body {
-    font-size: 12px;
+    font-size: 10px;
+  }
+  .clock {
+    font-size: 3rem;
   }
   .container {
     width: 80%;

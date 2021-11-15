@@ -9,17 +9,24 @@
     <link rel="shortcut icon" href="images/timerImg.png" />
   </head>
   <body>
+    <style type="text/css"></style>
     <div class="container">
       <div class="options" id="options">
-        <div class="option" id="pomodoro">Pomodoro</div>
+        <div class="option selected" id="pomodoro">Pomodoro</div>
         <div class="option" id="short">Short Break</div>
         <div class="option" id="long">Long Break</div>
       </div>
-      <div class="clock"><span id="time">00:00</span></div>
+
+      <div class="clock">
+        <hr />
+        <span id="time">25:00</span>
+        <hr />
+      </div>
+
       <div class="buttons">
-        <button id="start">Start</button>
-        <button id="stop">Stop</button>
-        <button id="reset">Reset</button>
+        <button class="buttonClass" id="start">Start</button>
+        <button class="buttonClass" id="stop">Stop</button>
+        <button class="buttonClass" id="reset">Reset</button>
       </div>
     </div>
   </body>
