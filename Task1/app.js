@@ -3,13 +3,19 @@ var itemList = document.getElementById("items");
 var filter = document.getElementById("filter");
 var items = itemList.getElementsByTagName("li");
 var dropDown = document.getElementById("dropdown-item-list");
+var saved = localStorage.getItem("items");
+
+if (saved) {
+  itemList.innerHTML = saved;
+}
+localStorage.setItem("items", itemList.innerHTML);
 
 // Form submit event
 form.addEventListener("submit", addItem);
 // Delete event
 itemList.addEventListener("click", removeItem);
 // Filter event
-filter.addEventListener("keyup", filterItems);
+// filter.addEventListener("keyup", filterItems);
 filter.addEventListener("keyup", addItemsToDropDown);
 
 //Add unique id to the list items
@@ -40,9 +46,11 @@ function addItemsToDropDown() {
     } else {
       option.style.display = "none";
     }
+    if (text === "") {
+      item.style.display = "block";
+    }
   }
 }
-//delete options from DropDown
 
 // Add item
 function addItem(e) {
@@ -81,6 +89,8 @@ function addItem(e) {
   option.value = newItem;
   option.id = li.id - li.id - li.id;
   dropDown.appendChild(option);
+  addItemsToDropDown();
+  localStorage.setItem("items", itemList.innerHTML);
 }
 
 // Remove item
@@ -93,26 +103,27 @@ function removeItem(e) {
   }
 
   addItemsToDropDown();
+  localStorage.setItem("items", itemList.innerHTML);
 }
 
-// Filter Items
-function filterItems(e) {
-  // convert text to lowercase
-  var text = e.target.value.toLowerCase();
-  // Get lis
+// // Filter Items
+// function filterItems(e) {
+//   // convert text to lowercase
+//   var text = e.target.value.toLowerCase();
+//   // Get lis
 
-  // Convert to an array
-  Array.from(items).forEach(function (item) {
-    var itemName = item.children[0].textContent;
-    //haystack.lastIndexOf(needle, 0) === 0
-    // itemName.toLowerCase().indexOf(text) != -1
-    if (itemName.toLowerCase().lastIndexOf(text, 0) === 0) {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
-    }
-  });
-}
+//   // Convert to an array
+//   Array.from(items).forEach(function (item) {
+//     var itemName = item.children[0].textContent;
+//     //haystack.lastIndexOf(needle, 0) === 0
+//     // itemName.toLowerCase().indexOf(text) != -1
+//     if (itemName.toLowerCase().lastIndexOf(text, 0) === 0) {
+//       item.style.display = "block";
+//     } else {
+//       item.style.display = "none";
+//     }
+//   });
+// }
 
 function showSelectedItem(e) {
   var items = itemList.getElementsByTagName("li");
@@ -128,4 +139,18 @@ function showSelectedItem(e) {
   });
   filter.value = e.target.textContent;
   addItemsToDropDown();
+}
+
+function blaa(e) {
+  switch (e.key) {
+    case "Left": // IE/Edge specific value
+    case "ArrowLeft":
+      plusSlides(-1);
+      break;
+
+    case "Right": // IE/Edge specific value
+    case "ArrowRight":
+      plusSlides(1);
+      break;
+  }
 }
