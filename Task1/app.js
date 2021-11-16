@@ -10,22 +10,7 @@ form.addEventListener("submit", addItem);
 itemList.addEventListener("click", removeItem);
 // Filter event
 filter.addEventListener("keyup", filterItems);
-
-function onInput() {
-  var opts = document.getElementById("dropdown-item-list").childNodes;
-
-  for (var i = 1; i < opts.length; i++) {
-    opts[i].addEventListener("click", showSelectedItem);
-    console.log(opts[i]);
-  }
-}
-function showSuggestions(list) {
-  let listData;
-  Array.from(items).forEach(function (item) {
-    suggBox.appendChild(item);
-  });
-  suggBox.innerHTML = listData;
-}
+filter.addEventListener("keyup", addItemsToDropDown);
 
 //Add unique id to the list items
 function nextId(e) {
@@ -40,18 +25,24 @@ function nextId(e) {
 
 //add items to dropdown menu
 function addItemsToDropDown() {
+  let text = filter.value.toLowerCase();
+  dropDown.innerHTML = "";
   for (let item of items) {
     var option = document.createElement("li");
-    option.value = item.children[0].textContent;
+    option.innerHTML = item.children[0].textContent;
     option.id = item.id - item.id - item.id;
+    option.addEventListener("click", showSelectedItem);
     dropDown.appendChild(option);
+    var itemName = item.children[0].textContent;
+    //
+    if (itemName.toLowerCase().lastIndexOf(text, 0) === 0 && text != "") {
+      option.style.display = "block";
+    } else {
+      option.style.display = "none";
+    }
   }
 }
 //delete options from DropDown
-function removeItemsFromDropDown() {
-  var options = document.querySelectorAll("#dropdown-item-list option");
-  options.forEach((o) => o.remove());
-}
 
 // Add item
 function addItem(e) {
@@ -100,7 +91,7 @@ function removeItem(e) {
       itemList.removeChild(li);
     }
   }
-  removeItemsFromDropDown();
+
   addItemsToDropDown();
 }
 
@@ -113,8 +104,9 @@ function filterItems(e) {
   // Convert to an array
   Array.from(items).forEach(function (item) {
     var itemName = item.children[0].textContent;
-    //
-    if (itemName.toLowerCase().indexOf(text) != -1) {
+    //haystack.lastIndexOf(needle, 0) === 0
+    // itemName.toLowerCase().indexOf(text) != -1
+    if (itemName.toLowerCase().lastIndexOf(text, 0) === 0) {
       item.style.display = "block";
     } else {
       item.style.display = "none";
@@ -125,14 +117,15 @@ function filterItems(e) {
 function showSelectedItem(e) {
   var items = itemList.getElementsByTagName("li");
   Array.from(items).forEach(function (item) {
-    console.log(e.target.id);
-    if (item.id != e.target.id) {
-      item.style.display = "block";
-    } else {
+    console.log(e.target.id * -1);
+    if (item.id != e.target.id * -1) {
+      // item.style.display = "block";
       item.style.display = "none";
+    } else {
+      // item.style.display = "none";
+      item.style.display = "block";
     }
   });
+  filter.value = e.target.textContent;
+  addItemsToDropDown();
 }
-
-addItemsToDropDown();
-onInput();
