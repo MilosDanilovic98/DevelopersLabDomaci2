@@ -4,7 +4,11 @@ var filter = document.getElementById("filter");
 var items = itemList.getElementsByTagName("li");
 var dropDown = document.getElementById("dropdown-item-list");
 var saved = localStorage.getItem("items");
+var dropDownOptions;
+var dropDownCounter;
+var counter = 0;
 
+//saves to local storage
 if (saved) {
   itemList.innerHTML = saved;
 }
@@ -15,7 +19,7 @@ form.addEventListener("submit", addItem);
 // Delete event
 itemList.addEventListener("click", removeItem);
 // Filter event
-// filter.addEventListener("keyup", filterItems);
+
 filter.addEventListener("keyup", addItemsToDropDown);
 
 //Add unique id to the list items
@@ -32,6 +36,7 @@ function nextId(e) {
 //add items to dropdown menu
 function addItemsToDropDown() {
   let text = filter.value.toLowerCase();
+  dropDownCounter = 0;
   dropDown.innerHTML = "";
   for (let item of items) {
     var option = document.createElement("li");
@@ -40,16 +45,20 @@ function addItemsToDropDown() {
     option.addEventListener("click", showSelectedItem);
     dropDown.appendChild(option);
     var itemName = item.children[0].textContent;
-    //
+
     if (itemName.toLowerCase().lastIndexOf(text, 0) === 0 && text != "") {
       option.style.display = "block";
+      option.classList.add("dropDownOption");
+      dropDownCounter++;
     } else {
       option.style.display = "none";
+      option.classList.remove("dropDownOption");
     }
     if (text === "") {
       item.style.display = "block";
     }
   }
+  filter.addEventListener("keyup", dropDownOptionsListTrough);
 }
 
 // Add item
@@ -106,29 +115,9 @@ function removeItem(e) {
   localStorage.setItem("items", itemList.innerHTML);
 }
 
-// // Filter Items
-// function filterItems(e) {
-//   // convert text to lowercase
-//   var text = e.target.value.toLowerCase();
-//   // Get lis
-
-//   // Convert to an array
-//   Array.from(items).forEach(function (item) {
-//     var itemName = item.children[0].textContent;
-//     //haystack.lastIndexOf(needle, 0) === 0
-//     // itemName.toLowerCase().indexOf(text) != -1
-//     if (itemName.toLowerCase().lastIndexOf(text, 0) === 0) {
-//       item.style.display = "block";
-//     } else {
-//       item.style.display = "none";
-//     }
-//   });
-// }
-
 function showSelectedItem(e) {
   var items = itemList.getElementsByTagName("li");
   Array.from(items).forEach(function (item) {
-    console.log(e.target.id * -1);
     if (item.id != e.target.id * -1) {
       // item.style.display = "block";
       item.style.display = "none";
@@ -141,16 +130,68 @@ function showSelectedItem(e) {
   addItemsToDropDown();
 }
 
-function blaa(e) {
+//list trough dropDown options
+
+function dropDownOptionsListTrough(e) {
+  dropDownOptions = document.getElementsByClassName("dropDownOption");
+  let enterPressed = false;
+  if (counter > dropDownCounter) {
+    counter = 0;
+  }
+
+  //for some reason this does not work in the for loop so i had to make it this way.Its not the best solution
+  //but it works
   switch (e.key) {
-    case "Left": // IE/Edge specific value
-    case "ArrowLeft":
-      plusSlides(-1);
+    case "Enter": // IE/Edge specific value
+    case "Enter":
+      enterPressed = true;
+      break;
+    case "Down": // IE/Edge specific value
+    case "ArrowDown":
+      if (counter === dropDownCounter - 1) {
+        counter = 0;
+      } else {
+        counter++;
+      }
+
       break;
 
-    case "Right": // IE/Edge specific value
-    case "ArrowRight":
-      plusSlides(1);
+    case "Up": // IE/Edge specific value
+    case "ArrowUp":
+      if (counter === 0) {
+        counter = dropDownCounter - 1;
+      } else {
+        counter--;
+      }
       break;
+  }
+
+  for (let item of dropDownOptions) {
+    console.log(counter);
+    //I used this loop twice so there is probably a better way to make all this but i dont have time right now
+    //and this works even if it is not optimized
+    if (enterPressed) {
+      var items = itemList.getElementsByTagName("li");
+      Array.from(items).forEach(function (ss) {
+        if (ss.id != dropDownOptions[counter].id * -1) {
+          // item.style.display = "block";
+          ss.style.display = "none";
+        } else {
+          // item.style.display = "none";
+          ss.style.display = "block";
+        }
+      });
+      filter.value = dropDownOptions[counter].textContent;
+      addItemsToDropDown();
+      enterPressed = false;
+    }
+    if (counter === 0) {
+      dropDownOptions[counter].classList.add("selected");
+    }
+    if (item === dropDownOptions[counter]) {
+      item.classList.add("selected");
+    } else {
+      item.classList.remove("selected");
+    }
   }
 }

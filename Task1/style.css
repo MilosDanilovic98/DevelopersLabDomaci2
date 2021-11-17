@@ -21,17 +21,5 @@
   background: #23272b;
 }
 .selected {
-  background: #23272b;
+  background: #007bff;
 }
-/* .search-input .icon {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  height: 55px;
-  width: 55px;
-  text-align: center;
-  line-height: 55px;
-  font-size: 20px;
-  color: #644bff;
-  cursor: pointer;
-} */
