@@ -171,14 +171,12 @@ function checkAnswers(e) {
         (answer.answerText === selected && !answer.isTrue) ||
         selectedAnswers.length < e.correctAnswers
       ) {
-        console.log("ssss");
         isCorrect = false;
       }
     });
   });
 
   if (selectedAnswers.length > 0) {
-    console.log(isCorrect);
     if (isCorrect) {
       scoreInt++;
 
@@ -191,7 +189,7 @@ function checkAnswers(e) {
     return isCorrect;
   } else {
     isCorrect = false;
-    console.log(isCorrect);
+
     alert("Your final score is " + scoreInt);
     location.reload();
     return isCorrect;
@@ -225,9 +223,8 @@ function startGameEvent() {
 
 //Sets up the next question
 function nextQuestion() {
-  console.log(counter);
   let question = rq[counter];
-  console.log(question);
+
   questionText.innerHTML = question.question;
   let i = 0;
   for (let item of options) {

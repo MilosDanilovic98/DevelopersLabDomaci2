@@ -36,7 +36,7 @@ function startTimer(duration, display) {
     tick.play();
     minutes = parseInt(timer / 60, 10);
     seconds = parseInt(timer % 60, 10);
-    console.log(timer);
+
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
 

@@ -33,7 +33,7 @@ function showSlides(n) {
 }
 
 //function for mouseover event
-function blaa(e) {
+function allowArrows(e) {
   switch (e.key) {
     case "Left": // IE/Edge specific value
     case "ArrowLeft":
@@ -48,11 +48,11 @@ function blaa(e) {
 }
 //adding all the needed event listeners
 function inContainer() {
-  document.addEventListener("keydown", blaa);
+  document.addEventListener("keydown", allowArrows);
 }
 
 function removeEvent() {
-  document.removeEventListener("keydown", blaa);
+  document.removeEventListener("keydown", allowArrows);
 }
 slideShowContainer.addEventListener("mouseenter", inContainer);
 slideShowContainer.addEventListener("mouseleave", removeEvent);

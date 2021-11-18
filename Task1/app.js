@@ -167,7 +167,6 @@ function dropDownOptionsListTrough(e) {
   }
 
   for (let item of dropDownOptions) {
-    console.log(counter);
     //I used this loop twice so there is probably a better way to make all this but i dont have time right now
     //and this works even if it is not optimized
     if (enterPressed) {

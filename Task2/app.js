@@ -42,7 +42,6 @@ function startGame() {
 //marks the cell depending on whose turn it is
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
-  console.log("ssss");
 }
 //function for clicking on cells
 function handleClick(e) {
@@ -54,7 +53,7 @@ function handleClick(e) {
     whoIsNext.innerText = "O's turn";
   }
   placeMark(cell, currentClass);
-  console.log("aaa");
+
   if (checkWin(currentClass)) {
     endGame(false);
   } else if (isDraw()) {
